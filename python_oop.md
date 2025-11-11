@@ -31,24 +31,24 @@ __init__ is a class constructor, which is a method that automatically called whe
 
   Inheritance: "is-a" relationship --> Ex: SavingsAccount is a BankAccount
 
-    **Customizing constructors:**
-      class SavingsAccount(BankAccount):
+  **Customizing constructors:**
+    class SavingsAccount(BankAccount):
+    
+      **# specific constructor for SavingsAccount with an additional parameter**
+      def __init__(self, balance, interest_rate):
       
-        **# specific constructor for SavingsAccount with an additional parameter**
-        def __init__(self, balance, interest_rate):
+        **# call the parent constructor using ClassName.__init__()**
+        BankAccount.__init__(self, balance) # <-- first call the constructor from the parent class (self in this case is a SavingsAccount, but also a BankAccount)
         
-          **# call the parent constructor using ClassName.__init__()**
-          BankAccount.__init__(self, balance) # <-- first call the constructor from the parent class (self in this case is a SavingsAccount, but also a BankAccount)
-          
-          # Adding more functionality
-          self.insterest_rate = interest_rate
+        # Adding more functionality
+        self.insterest_rate = interest_rate
 
-          acct = SavingsAccount(1000, 0.03)
-          acct.interest_rate
+        acct = SavingsAccount(1000, 0.03)
+        acct.interest_rate
 
-          # New functionality
-          def compute_interest(self, n_periods = 1):
-            return self.balance * ((1 + self.interest_rate) ** n_periods - 1) # the new method uses the balance attribute (inherited from the Parent class) and also the interest_rate attribute, which only exists in the new class 
+        # New functionality
+        def compute_interest(self, n_periods = 1):
+          return self.balance * ((1 + self.interest_rate) ** n_periods - 1) # the new method uses the balance attribute (inherited from the Parent class) and also the interest_rate attribute, which only exists in the new class 
 
 
       
