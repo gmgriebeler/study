@@ -16,7 +16,7 @@ __init__ is a class constructor, which is a method that automatically called whe
   @classmethod
   def example(cls, parameter_1):
 
-Class inheritance:
+**Class inheritance:**
   Is a mechanism that allows to define new classes that gets functionalities of older classes, without reimplementing the code already written
   To implement class inheritance, we simply add parenthesis after the class name and specify the class to inherit from.
     Ex: class BankAccount:
@@ -30,6 +30,25 @@ Class inheritance:
           pass     #empty class for now
 
   Inheritance: "is-a" relationship --> Ex: SavingsAccount is a BankAccount
+
+    **Customizing constructors:**
+      class SavingsAccount(BankAccount):
+      
+        **# specific constructor for SavingsAccount with an additional parameter**
+        def __init__(self, balance, interest_rate):
+        
+          **# call the parent constructor using ClassName.__init__()**
+          BankAccount.__init__(self, balance) # <-- first call the constructor from the parent class (self in this case is a SavingsAccount, but also a BankAccount)
+          
+          # Adding more functionality
+          self.insterest_rate = interest_rate
+
+          acct = SavingsAccount(1000, 0.03)
+          acct.interest_rate
+
+          # New functionality
+          def compute_interest(self, n_periods = 1):
+            return self.balance * ((1 + self.interest_rate) ** n_periods - 1) # the new method uses the balance attribute (inherited from the Parent class) and also the interest_rate attribute, which only exists in the new class 
 
 
       
