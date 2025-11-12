@@ -32,3 +32,6 @@ F) Create a new branch:
 
     F.1) Create a new branch and switch to it
         git checkout -b test
+
+
+## EXAMPLE CHANGES FOR PUSHING AND MERGING TESTING
