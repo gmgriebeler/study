@@ -1,0 +1,34 @@
+GIT CLONING, COMMITING AND PUSHING 101
+
+A) Clone repository locally:
+    1) Locate (cd ~/source) or create folder to keep repositories:
+        mkdir -p ~/source
+        cd ~/source
+    2) Clone repository
+        - On repo's GH page --> click Code --> SSH --> copy the link
+        - In GitBash --> git clone git@github.com:username/<repo-name>.git
+
+B) Enter the cloned repo:
+    cd myproject    # Goes to the cloned repo
+    
+    git remote -v   # check the connection
+
+C) Stage (add) a file to git tracking (tells Git you want it included in the next commit)
+    git add example.txt
+    git add .       #adds all changes
+    git status      #checks what is staged
+
+D) Commit changes with a message:
+    git commit -m "Add example.txt with initial content"
+
+E) Push changes to GitHub:
+    git push origin main
+
+    E.1) Push to a new branch for the first time:
+        git push -u origin branch    
+
+F) Create a new branch:
+    git branch test
+
+    F.1) Create a new branch and switch to it
+        git checkout -b test
