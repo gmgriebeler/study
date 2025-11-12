@@ -1,0 +1,75 @@
+GIT SSH CONNECTION GUIDE
+
+1) Create .ssh folder:
+    mkdir ~/.ssh
+
+    # mkdir creates a new directory, while ~/.ssh creates a folder named .ssh in my home folder
+
+2) Generate new ssh key pair:
+    ssh-keygen -t ed25519 -C "your_email@example.com" -f ~/.ssh/id_ed25519_example
+
+    # (ssh-keygen) creates a new ssh key, (-t ed25519) uses the ed25519 encryption algorithm
+    # (-C "your_email@example.com") adds a comment inside the key to allow easier identification
+    # (-f ~/.ssh/id_ed25519_example) defines the location and allows to name the new key
+    # Enter passphrase --> Skip
+    # two files have been created: ~/.ssh/id_ed25519_example (your private key (keep it secret!)) and 
+    # ~/.ssh/id_ed25519_example.pub (your public key (you’ll upload this to GitHub))
+
+3) Start SSH agent:
+    eval "$(ssh-agent -s)"
+
+    # starts the ssh agent, a program that hold your private keys in memory
+    # Output: Agent pid 1234
+
+4) Add SSH key to the agent:
+    ssh-add ~/.ssh/id_ed25519_example
+
+    # ssh-add tells the agent to load your key
+    # Confirm key is loaded with: ssh-add -l
+
+5) Copy public key to clipboard:
+    clip < ~/.ssh/id_ed25519_example.pub
+
+    # clip copies whatever is sent to it into the clipboard
+    # < ~/.ssh/id_ed25519_example.pub sends the content of the public key file to clip
+
+6) Add SSH key to GitHub account:
+    Setting --> SSH and GPG keys
+    New SSH key --> Add a title --> Paste key copied in last step into Key box --> Click Add SSH key
+
+7) Configure SSH to always use this key for GitHub:
+    notepad ~/.ssh/config
+    # Add to notepad
+    Host github.com                             # Defines settings for any connection to github.com
+        HostName github.com                     # Real hostname to connect to
+        User git                                # Username GitHub requires for SSH
+        IdentityFile ~/.ssh/id_ed25519_example  # Private key file to use
+        IdentitiesOnly yes                      # Tells SSH to use only this key for GitHub
+
+8) Test the connection:
+    ssh -T git@github.com
+    
+    # Output example for success: Hi yourusername! You've successfully authenticated...
+
+9) (Optional) Configure Git to use your GitHub identity:
+    git config --global user.name "Your Name"
+    git config --global user.email "your_email@example.com"
+
+A) Connection time out error (port 22):
+    ssh -T p 443 git@ssh.github.com 
+    # Testing connection using port 443, if that works, fix permanently by editing ssh config
+
+    notepad ~/.ssh/config
+    # Add to config:
+    Host github.com
+        HostName ssh.github.com
+        User git
+        Port 443
+        IdentityFile ~/.ssh/id_ed25519_example
+        IdentitiesOnly yes
+
+    # Save and test again: ssh -T git@github.com
+
+
+
+
