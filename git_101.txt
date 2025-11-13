@@ -32,3 +32,6 @@ F) Create a new branch:
 
     F.1) Create a new branch and switch to it
         git checkout -b test
+
+OBS: 1- Always merge being on main branch
+     2- GitLens Extension on VSCode helps with visualization and git management
